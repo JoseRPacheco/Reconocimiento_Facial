@@ -43,7 +43,7 @@ def findEncodings(images):
 # Obtiene las codificaciones de todas las imágenes conocidas
 encodeListKnown = findEncodings(images)
 
-# Registro en CSV del nombre y hora
+# Registro en CSV del nombre, fecha y hora
 def horario(nombre):
     if not os.path.exists('Horarios.csv'):
         with open('Horarios.csv','w') as h:
@@ -57,10 +57,12 @@ def horario(nombre):
         nombres = [line.split(',')[0] for line in data if line.strip()]
         #Condicion en caso de que no se encuentre el registro en nombres
         if nombre not in nombres:
+            #Extraer la fecha
+            fecha = datetime.now().strftime('%Y:%m:%d')
             #Obtiene la hora actual
             hora = datetime.now().strftime('%H:%M:%S')
             #Escribe el nombre y hora en el archivo csv
-            f.write(f'{nombre},{hora}\n')
+            f.write(f'{nombre},{fecha},{hora}\n')
 
 # Iniciar webcam
 cap = cv2.VideoCapture(0)
